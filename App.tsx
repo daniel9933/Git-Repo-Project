@@ -1,21 +1,19 @@
-
 import { StyleSheet, Text, View } from 'react-native';
-import Welcome from './components/Welcome';
+import SignInScreen from './src/screens/SignInsScreen/SignInScreen';
 
-
-export default function App() {
+export default function App(){
   return (
-    <View style={styles.container}>
-      <Welcome />
+    <View style={styles.root}>
+      <SignInScreen />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+  root: {
+    flex: 1 ,
+    backgroundColor: '#F9FBFC',
     justifyContent: 'center',
   },
 });
+
