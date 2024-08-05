@@ -5,15 +5,17 @@ interface CustomInputProps { // need to understand interfaces
     value:string;
     setValue: (value: string) => void;
     placeholder : string;
+    secureTextEntry: boolean
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ value, setValue, placeholder }) => { //need to understand what that does
+const CustomInput: React.FC<CustomInputProps> = ({ value, setValue, placeholder, secureTextEntry }) => { //need to understand what that does
     return (
         <View style = {styles.container}>
             <TextInput
                 value = {value}
                 onChangeText = {setValue}
                 placeholder = {placeholder}
+                secureTextEntry = {secureTextEntry}
                 style = {styles.input} 
             />
         </View>
