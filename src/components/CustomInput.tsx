@@ -1,12 +1,18 @@
 import React from "react";
 import { View, Text , TextInput , StyleSheet} from 'react-native'
 
-const CustomInput = (value: string , setValue: string, placeholder: string) => {
+interface CustomInputProps { // need to understand interfaces 
+    value:string;
+    setValue: (value: string) => void;
+    placeholder : string;
+}
+
+const CustomInput: React.FC<CustomInputProps> = ({ value, setValue, placeholder }) => { //need to understand what that does
     return (
         <View style = {styles.container}>
             <TextInput
                 value = {value}
-                onChangeText= {setValue}
+                onChangeText = {setValue}
                 placeholder = {placeholder}
                 style = {styles.input} 
             />
