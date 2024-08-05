@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text , TextInput , StyleSheet} from 'react-native'
 
-interface CustomInputProps { // need to understand interfaces 
+interface CustomInputProps { 
     value:string;
     setValue: (value: string) => void;
     placeholder : string;
