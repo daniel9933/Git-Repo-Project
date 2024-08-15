@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import SignInScreen from './src/screens/SignInsScreen/SignInScreen';
+import SignUpScreen from './src/screens/SignInsScreen/SignUpScreen';
 
 export default function App(){
   return (
     <View style={styles.root}>
-      <SignInScreen />
+      <SignUpScreen />
     </View>
   );
 }
