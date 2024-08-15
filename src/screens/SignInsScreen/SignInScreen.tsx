@@ -36,6 +36,7 @@ const SignInScreen = () => {
                     />
 
                     <CustomInput
+                        style = {styles.input}
                         placeholder='Username'
                         value={Username}
                         setValue={setUsername}
@@ -105,6 +106,9 @@ const styles = StyleSheet.create({
         marginVertical: 5, // Vertical spacing around the line
         alignSelf: 'center'
     },
+    input: {
+        color: 'white'
+    }
 
 });
 

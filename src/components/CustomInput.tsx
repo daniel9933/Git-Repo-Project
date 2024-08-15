@@ -24,11 +24,10 @@ const CustomInput: React.FC<CustomInputProps> = ({ value, setValue, placeholder,
 
 const styles = StyleSheet.create({    
     container:{
-        backgroundColor: 'white',
+        backgroundColor: '#222328',
         width: '100%',
-        padding:5,
+        padding:10,
         
-        borderColor:'#e8e8e8',
         borderWidth: 1,
         borderRadius: 5, // makes the corners round
 
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
         marginVertical: 5, //prevents two custom inputs being on top of each other
     },
     input:{
-
+        color:'white',
     },
 });
 

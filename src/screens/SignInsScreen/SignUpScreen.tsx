@@ -11,11 +11,19 @@ const SignUpScreen = () => {
 
 
     const onRegisterPressed = () => { // function that sends a warning when sign in is pressed
-        console.warn("Sign in");
+        console.warn("Register");
     };
 
-    const onSignUpPressed = () => { // function that sends a warning when sign up is pressed
+    const onHaveAnAccountPressed = () => { // function that sends a warning when sign up is pressed
         console.warn("Sign up");
+    };
+
+    const  onTermsPressed= () => { // function that sends a warning when terms of use are pressed
+        console.warn("onTermsPressed");
+    };
+
+    const onPolicyPressed =  () => { // function that sends a warning when privacy policy is pressed
+        console.warn("onPrivacyPressed");
     };
 
     return (
@@ -35,7 +43,7 @@ const SignUpScreen = () => {
                     />
 
                     <CustomInput
-                        placeholder='nigger@gmail.com'
+                        placeholder='Email'
                         value={email}
                         setValue={setEmail}
                         secureTextEntry={false}
@@ -63,8 +71,8 @@ const SignUpScreen = () => {
 
                     <Text style = {styles.text}>
                         By registering , you confirm that you
-                        accept our <Text style = {styles.link}>Terms of Use </Text> 
-                        and <Text style = {styles.link}>Privacy Policy</Text>
+                        accept our <Text style = {styles.link} onPress={onTermsPressed}>Terms of Use </Text> 
+                        and <Text style = {styles.link} onPress={onPolicyPressed}>Privacy Policy</Text>
                     </Text>
 
                 </View>
@@ -74,8 +82,8 @@ const SignUpScreen = () => {
                 <View style={styles.separatorLine} />
 
             <CustomButton
-                text="Don't have an account? Create one"
-                onPress={onSignUpPressed}
+                text="Have an account? Sign In"
+                onPress={onHaveAnAccountPressed}
                 type="TERTIARY"
             />
         </View>
@@ -109,7 +117,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: 'bold',
-        color : '#051C60',
+        color : 'white',
         margin : 10,
     },
     text : {
