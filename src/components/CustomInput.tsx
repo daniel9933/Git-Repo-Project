@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     container:{
         backgroundColor: '#222328',
         width: '100%',
-        padding:10,
+        padding:15,
         
         borderWidth: 1,
         borderRadius: 5, // makes the corners round

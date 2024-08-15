@@ -5,7 +5,7 @@ import {View, Text , StyleSheet, Pressable} from 'react-native'
 interface CustomButtonProps{
     text: string;
     onPress: () => void;
-    type?: 'PRIMARY' | 'TERTIARY';// optional
+    type?: 'PRIMARY' | 'TERTIARY' | 'SECONDARY';// optional
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({ onPress, text, type }) => {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         width : '100%',
 
         padding: 15,
-        marginVertical:2,
+        marginVertical:5,
 
         alignItems: 'center',
         borderRadius: 5,
@@ -30,7 +30,11 @@ const styles = StyleSheet.create({
 
     container_PRIMARY: {
         backgroundColor: '#3B71F3',
-         
+    },
+
+    container_SECONDARY: {
+        borderColor: '#3B71F3',
+        borderWidth : 2,
     },
 
     container_TERTIARY: {
@@ -40,6 +44,10 @@ const styles = StyleSheet.create({
     
     text_PRIMARY: {
         color: 'white'
+    },
+
+    text_SECONDARY: {
+        color: '#3B71F3'
     },
 
     text_TERTIARY: {

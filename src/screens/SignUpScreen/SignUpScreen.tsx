@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUpScreen = () => {
     const [Username, setUsername] = useState(''); // initial state of username,password,email
@@ -9,20 +10,23 @@ const SignUpScreen = () => {
     const [password, setPassword] = useState('');
     const [passwordRepeat , setPasswordRepeat ] = useState('');
 
-
-    const onRegisterPressed = () => { // function that sends a warning when sign in is pressed
-        console.warn("Register");
+    const navigation = useNavigation();
+    
+    const onRegisterPressed = () => { 
+        //validate the information
+        navigation.navigate('ConfirmEmail');
     };
 
-    const onHaveAnAccountPressed = () => { // function that sends a warning when sign up is pressed
-        console.warn("Sign up");
+    const onHaveAnAccountPressed = () => { 
+        navigation.navigate('SignIn');
+
     };
 
-    const  onTermsPressed= () => { // function that sends a warning when terms of use are pressed
+    const  onTermsPressed= () => { 
         console.warn("onTermsPressed");
     };
 
-    const onPolicyPressed =  () => { // function that sends a warning when privacy policy is pressed
+    const onPolicyPressed =  () => { 
         console.warn("onPrivacyPressed");
     };
 

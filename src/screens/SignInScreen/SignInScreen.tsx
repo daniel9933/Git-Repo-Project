@@ -3,23 +3,27 @@ import { View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-
 import Logo from '../../../assets/images/Logo_1.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const SignInScreen = () => {
     const [Username, setUsername] = useState(''); // initial state of username and password
     const [password, setPassword] = useState('');
 
     const { height } = useWindowDimensions(); // gets the window dimensions of the device
+    const navigation = useNavigation();
 
-    const onSignInPressed = () => { // function that sends a warning when sign in is pressed
+    const onSignInPressed = () => { 
         console.warn("Sign in");
+        //validate user through backend 
+        //navigate to home screen
     };
 
-    const OnForgotPasswordPressed = () => { // function that sends a warning when forgot password is pressed
-        console.warn("OnForgotPasswordPressed");
+    const OnForgotPasswordPressed = () => { 
+        navigation.navigate('ForgotPassword');
     };
 
-    const onSignUpPressed = () => { // function that sends a warning when sign up is pressed
-        console.warn("Sign up");
+    const onSignUpPressed = () => { 
+        navigation.navigate('SignUp');
     };
 
     return (
@@ -36,7 +40,6 @@ const SignInScreen = () => {
                     />
 
                     <CustomInput
-                        style = {styles.input}
                         placeholder='Username'
                         value={Username}
                         setValue={setUsername}
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 20,
+        paddingVertical: 20, 
     },
     mainContent: {
         width:'100%',
@@ -106,9 +109,6 @@ const styles = StyleSheet.create({
         marginVertical: 5, // Vertical spacing around the line
         alignSelf: 'center'
     },
-    input: {
-        color: 'white'
-    }
 
 });
 
