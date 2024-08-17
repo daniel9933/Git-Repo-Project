@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'; 
+import { RootStackParamList } from '../../navigation/routeParameterList';
 
 const ForgotPasswordScreen = () => {
     const [Username, setUserName] = useState(''); // initial state of the code 
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
 
     const onSendPressed = () => { 
         navigation.navigate('ResetPassword');

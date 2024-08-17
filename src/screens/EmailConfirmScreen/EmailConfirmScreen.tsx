@@ -4,12 +4,15 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation} from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/routeParameterList';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+
 
 
 const EmailConfirmScreen = () => {
     const [code, setCode] = useState(''); // initial state of code 
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const onConfirmPressed = () => { 
         console.warn("Confirm");

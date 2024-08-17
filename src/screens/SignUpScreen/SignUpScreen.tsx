@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'; 
+import { RootStackParamList } from '../../navigation/routeParameterList';
 
 const SignUpScreen = () => {
     const [Username, setUsername] = useState(''); // initial state of username,password,email
@@ -10,7 +12,8 @@ const SignUpScreen = () => {
     const [password, setPassword] = useState('');
     const [passwordRepeat , setPasswordRepeat ] = useState('');
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
+    
     
     const onRegisterPressed = () => { 
         //validate the information

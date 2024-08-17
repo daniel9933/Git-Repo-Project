@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'; 
+import { RootStackParamList } from '../../navigation/routeParameterList';
 
 const PasswordResetScreen = () => {
     const [code, setCode] = useState(''); // initial state of the code 
     const [newPassword, setNewPassword] = useState('');
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
 
     const onSubmitPressed = () => { 
         console.warn("Submit");

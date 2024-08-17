@@ -4,13 +4,18 @@ import Logo from '../../../assets/images/Logo_1.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'; 
+import { RootStackParamList } from '../../navigation/routeParameterList';
+
 
 const SignInScreen = () => {
     const [Username, setUsername] = useState(''); // initial state of username and password
     const [password, setPassword] = useState('');
 
     const { height } = useWindowDimensions(); // gets the window dimensions of the device
-    const navigation = useNavigation();
+
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
+
 
     const onSignInPressed = () => { 
         console.warn("Sign in");

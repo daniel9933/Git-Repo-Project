@@ -7,9 +7,10 @@ import EmailConfirmScreen from '../screens/EmailConfirmScreen/EmailConfirmScreen
 import PasswordResetScreen from '../screens/PasswordResetScreen/PasswordResetScreen';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { RootStackParamList } from './routeParameterList';
 
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const CustomTheme = {
   ...DarkTheme, // Properly extend the DarkTheme
