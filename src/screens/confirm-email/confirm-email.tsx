@@ -2,23 +2,15 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'; 
-import { RootStackParamList } from '../../navigation/routeParameterList';
+import {router} from "expo-router";
 
-const ForgotPasswordScreen = () => {
-    const [Username, setUserName] = useState(''); // initial state of the code 
 
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
+const EmailConfirmScreen = () => {
+    const [code, setCode] = useState(''); // initial state of code 
 
-    const onSendPressed = () => { 
-        navigation.navigate('ResetPassword');
-    };
-
-    const onSignInPressed = () => { 
-        navigation.navigate('SignIn');
-    };
-
+const onResendPressed = () => {
+    console.warn("resend");
+}
 
     return (
         <View style={styles.root}>
@@ -27,19 +19,25 @@ const ForgotPasswordScreen = () => {
                 contentContainerStyle={styles.scrollViewContent}
             >
                 <View style={styles.mainContent}>
-                    <Text style = {styles.title}>Reset your password</Text>
+                    <Text style = {styles.title}> Confirm Your Email</Text>
 
                     <CustomInput
-                        placeholder='Enter your username'
-                        value={Username}
-                        setValue={setUserName}
+                        placeholder='Code'
+                        value={code}
+                        setValue={setCode}
                         secureTextEntry={false}
                     />
 
                     <CustomButton
-                        text="Send"
-                        onPress={onSendPressed}
+                        text="Confirm"
+                        onPress= {() => router.push("/home")}
                         type="PRIMARY"
+                    />
+
+                    <CustomButton
+                    text="Resend code"
+                    onPress={onResendPressed}
+                    type="SECONDARY"
                     />
 
                 </View>
@@ -47,8 +45,8 @@ const ForgotPasswordScreen = () => {
 
 
             <CustomButton
-                text="Back to Sign In"
-                onPress={onSignInPressed}
+                text="Back to Sign Up"
+                onPress= {() => router.push("/sign-up")}
                 type="TERTIARY"
             />
 
@@ -83,4 +81,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ForgotPasswordScreen;
+export default EmailConfirmScreen;

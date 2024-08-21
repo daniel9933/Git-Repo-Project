@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'; 
-import { RootStackParamList } from '../../navigation/routeParameterList';
+import {router} from "expo-router"
 
 const SignUpScreen = () => {
     const [Username, setUsername] = useState(''); // initial state of username,password,email
@@ -12,26 +10,7 @@ const SignUpScreen = () => {
     const [password, setPassword] = useState('');
     const [passwordRepeat , setPasswordRepeat ] = useState('');
 
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
-    
-    
-    const onRegisterPressed = () => { 
-        //validate the information
-        navigation.navigate('ConfirmEmail');
-    };
 
-    const onHaveAnAccountPressed = () => { 
-        navigation.navigate('SignIn');
-
-    };
-
-    const  onTermsPressed= () => { 
-        console.warn("onTermsPressed");
-    };
-
-    const onPolicyPressed =  () => { 
-        console.warn("onPrivacyPressed");
-    };
 
     return (
         <View style={styles.root}>
@@ -67,19 +46,19 @@ const SignUpScreen = () => {
                         placeholder='Repeat Password'
                         value={passwordRepeat}
                         setValue={setPasswordRepeat}
-                        secureTextEntry={false}
+                        secureTextEntry={true}
                     />
 
                     <CustomButton
                         text="Register"
-                        onPress={onRegisterPressed}
+                        onPress= {() => router.push("/confirm-email/Confirm")}
                         type="PRIMARY"
                     />
 
                     <Text style = {styles.text}>
                         By registering , you confirm that you
-                        accept our <Text style = {styles.link} onPress={onTermsPressed}>Terms of Use </Text> 
-                        and <Text style = {styles.link} onPress={onPolicyPressed}>Privacy Policy</Text>
+                        accept our <Text style = {styles.link} /*onPress={onTermsPressed}*/>Terms of Use </Text> 
+                        and <Text style = {styles.link} /*onPress={onPolicyPressed}*/>Privacy Policy</Text>
                     </Text>
 
                 </View>
@@ -90,7 +69,7 @@ const SignUpScreen = () => {
 
             <CustomButton
                 text="Have an account? Sign In"
-                onPress={onHaveAnAccountPressed}
+                onPress= {() => router.push("/sign-in")}
                 type="TERTIARY"
             />
         </View>

@@ -3,35 +3,30 @@ import { View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-
 import Logo from '../../../assets/images/Logo_1.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'; 
-import { RootStackParamList } from '../../navigation/routeParameterList';
+import {router, Stack} from "expo-router"
 
 
 const SignInScreen = () => {
+    <>
+        <Stack.Screen
+        options={{
+            title: 'sign in',
+            headerShown: false,
+        }}
+        />
+    </>
     const [Username, setUsername] = useState(''); // initial state of username and password
     const [password, setPassword] = useState('');
 
     const { height } = useWindowDimensions(); // gets the window dimensions of the device
 
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
+   // const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
 
-
-    const onSignInPressed = () => { 
-        console.warn("Sign in");
-        //validate user through backend 
-        //navigate to home screen
-    };
-
-    const OnForgotPasswordPressed = () => { 
-        navigation.navigate('ForgotPassword');
-    };
-
-    const onSignUpPressed = () => { 
-        navigation.navigate('SignUp');
-    };
 
     return (
+
+
+        
         <View style={styles.root}>
             <ScrollView 
                 showsVerticalScrollIndicator={false} 
@@ -59,13 +54,13 @@ const SignInScreen = () => {
 
                     <CustomButton
                         text="Sign In"
-                        onPress={onSignInPressed}
+                        onPress= {() => router.push("/home")}
                         type="PRIMARY"
                     />
 
                     <CustomButton
                         text="Forgot password?"
-                        onPress={OnForgotPasswordPressed}
+                        onPress= {() => router.push("/forgot-password/Forgot")}
                         type="TERTIARY"
                     />
 
@@ -77,7 +72,7 @@ const SignInScreen = () => {
 
             <CustomButton
                 text="Don't have an account? Create one"
-                onPress={onSignUpPressed}
+                onPress= {() => router.push("/sign-up")}
                 type="TERTIARY"
             />
         </View>

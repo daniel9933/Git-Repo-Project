@@ -2,30 +2,15 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import { useNavigation} from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation/routeParameterList';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {router} from "expo-router";
+
+const PasswordResetScreen = () => {
+    const [code, setCode] = useState(''); // initial state of the code 
+    const [newPassword, setNewPassword] = useState('');
 
 
-
-
-const EmailConfirmScreen = () => {
-    const [code, setCode] = useState(''); // initial state of code 
-
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-    const onConfirmPressed = () => { 
-        console.warn("Confirm");
-        //redirect to home page
-    };
-
-    const onSignUpPressed = () => { 
-        navigation.navigate('SignUp');
-    };
-
-    const onResendPressed = () => { 
-        console.warn("Resend");
-        //resend the code through email
+    const onSubmitPressed = () => { 
+        console.warn("Submit");
     };
 
 
@@ -36,7 +21,7 @@ const EmailConfirmScreen = () => {
                 contentContainerStyle={styles.scrollViewContent}
             >
                 <View style={styles.mainContent}>
-                    <Text style = {styles.title}> Confirm Your Email</Text>
+                    <Text style = {styles.title}>Reset your password</Text>
 
                     <CustomInput
                         placeholder='Code'
@@ -45,16 +30,17 @@ const EmailConfirmScreen = () => {
                         secureTextEntry={false}
                     />
 
-                    <CustomButton
-                        text="Confirm"
-                        onPress={onConfirmPressed}
-                        type="PRIMARY"
+                    <CustomInput
+                        placeholder='Enter your new password'
+                        value={newPassword}
+                        setValue={setNewPassword}
+                        secureTextEntry={false}
                     />
 
                     <CustomButton
-                    text="Resend code"
-                    onPress={onResendPressed}
-                    type="SECONDARY"
+                        text="Submit"
+                        onPress={onSubmitPressed}
+                        type="PRIMARY"
                     />
 
                 </View>
@@ -62,8 +48,8 @@ const EmailConfirmScreen = () => {
 
 
             <CustomButton
-                text="Back to Sign Up"
-                onPress={onSignUpPressed}
+                text="Back to Sign In"
+                onPress= {() => router.push("/sign-in")}
                 type="TERTIARY"
             />
 
@@ -98,4 +84,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default EmailConfirmScreen;
+export default PasswordResetScreen;
