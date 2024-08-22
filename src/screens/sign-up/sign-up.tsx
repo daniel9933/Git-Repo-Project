@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import {router} from "expo-router"
+import {router, Stack} from "expo-router"
 
 const SignUpScreen = () => {
     const [Username, setUsername] = useState(''); // initial state of username,password,email
@@ -10,9 +10,16 @@ const SignUpScreen = () => {
     const [password, setPassword] = useState('');
     const [passwordRepeat , setPasswordRepeat ] = useState('');
 
-
+    
 
     return (
+        <>
+            <Stack.Screen
+            options={{
+                headerShown: false,
+            }}
+            />
+    
         <View style={styles.root}>
             <ScrollView 
                 showsVerticalScrollIndicator={false} 
@@ -73,6 +80,7 @@ const SignUpScreen = () => {
                 type="TERTIARY"
             />
         </View>
+        </>
     );
 };
 

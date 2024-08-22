@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import {router} from "expo-router";
+import { router ,Stack } from "expo-router";
 
 const ForgotPasswordScreen = () => {
     const [Username, setUserName] = useState(''); // initial state of the code 
 
     return (
+        <>
+            <Stack.Screen
+            options={{
+                headerShown: false,
+
+            }}
+            />
+
         <View style={styles.root}>
             <ScrollView 
                 showsVerticalScrollIndicator={false} 
@@ -38,8 +46,8 @@ const ForgotPasswordScreen = () => {
                 onPress= {() => router.push("/sign-in")}
                 type="TERTIARY"
             />
-
         </View>
+        </>
     );
 };
 

@@ -10,8 +10,7 @@ const SignInScreen = () => {
     <>
         <Stack.Screen
         options={{
-            title: 'sign in',
-            headerShown: false,
+            headerShown: true,
         }}
         />
     </>
@@ -24,7 +23,13 @@ const SignInScreen = () => {
 
 
     return (
-
+        <>
+            <Stack.Screen
+            options={{
+                headerShown: false,
+            }}
+            />
+    
 
         
         <View style={styles.root}>
@@ -76,6 +81,7 @@ const SignInScreen = () => {
                 type="TERTIARY"
             />
         </View>
+        </>
     );
 };
 
@@ -109,7 +115,9 @@ const styles = StyleSheet.create({
         marginVertical: 5, // Vertical spacing around the line
         alignSelf: 'center'
     },
+    
 
 });
 
 export default SignInScreen;
+

@@ -1,12 +1,10 @@
 import React from 'react';
 import { Redirect } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
-import SignInScreen from '../src/screens/sign-in/sign-in';
+import Root from './_layout';
 
 
 export default function index(){
-  <View>
-    <SignInScreen/>
-  </View>
+  return <Redirect href = "sign-in" />
 }
 
