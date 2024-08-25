@@ -7,13 +7,7 @@ import {router, Stack} from "expo-router"
 
 
 const SignInScreen = () => {
-    <>
-        <Stack.Screen
-        options={{
-            headerShown: true,
-        }}
-        />
-    </>
+
     const [Username, setUsername] = useState(''); // initial state of username and password
     const [password, setPassword] = useState('');
 
