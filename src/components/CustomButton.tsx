@@ -20,7 +20,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ onPress, text, type }) => {
 const styles = StyleSheet.create({
     container:{
         width : '100%',
-
+        
         padding: 15,
         marginVertical:5,
 
