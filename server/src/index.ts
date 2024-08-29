@@ -13,6 +13,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("ok");
 });
 
+console.log('Starting server...');
 const server = app.listen(port, () => {
     logger.info(`[server]: Server is running at http://localhost:${port}`);
   });

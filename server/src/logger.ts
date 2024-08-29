@@ -6,11 +6,6 @@ export default pino({
             {
             target: 'pino-pretty',
             },
-            {
-                level: 'trace',
-                target: 'pino/file',
-                options: {destination: '../.temp/pino-logger.log'}
-            }
         ],
     },
 });
