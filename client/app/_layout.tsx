@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Slot, Stack } from 'expo-router';
+import { StyleSheet } from 'react-native';
+import { Stack } from 'expo-router';
 import { DarkTheme, ThemeProvider } from '@react-navigation/native';
+
 
 
 const CustomTheme = {
@@ -16,9 +17,7 @@ export default function Root(){
 
   return (
     <ThemeProvider value = {CustomTheme}>
-      <Stack>
-        <Slot/>
-      </Stack>
+      <Stack/>
     </ThemeProvider>
   )
 }
