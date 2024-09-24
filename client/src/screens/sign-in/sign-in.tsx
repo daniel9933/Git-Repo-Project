@@ -9,23 +9,46 @@ import {router, Stack} from "expo-router"
 const SignInScreen = () => {
 
     const [Username, setUsername] = useState(''); // initial state of username and password
-    const [password, setPassword] = useState('');
+    const [Password, setPassword] = useState('');
 
     const { height } = useWindowDimensions(); // gets the window dimensions of the device
 
-   // const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();//ensure type safety
+    // this function sends the login data to the server. 
+    const SignInPressed = async () => {
+        try {
+            const response = await fetch('http://192.168.1.221:3000/api/auth/sign-in', {
+                    method : 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: Username,
+                        password : Password,
+                    }),
+                });
 
+                if (response.status == 200) { 
+                    router.push("/home")
+                }
+                else
+                {
+                    alert("error")
+                }
+            }
+            catch (error){
+                console.error('Error logging in:', error);
+                alert('An error occured. please try again.')
+            }
+        }
 
     return (
         <>
             <Stack.Screen
             options={{
-                headerShown: false,
+                headerShown: true,
             }}
             />
-    
 
-        
         <View style={styles.root}>
             <ScrollView 
                 showsVerticalScrollIndicator={false} 
@@ -46,14 +69,14 @@ const SignInScreen = () => {
                     />
                     <CustomInput
                         placeholder='Password'
-                        value={password}
+                        value={Password}
                         setValue={setPassword}
                         secureTextEntry={true}
                     />
 
                     <CustomButton
                         text="Sign In"
-                        onPress= {() => router.push("/home")}
+                        onPress= {SignInPressed}
                         type="PRIMARY"
                     />
 
