@@ -1,4 +1,4 @@
-import express, {Express , Request , response, Response} from "express";
+import express, {Express , Request , Response, } from "express";
 import dotenv from 'dotenv';
 import httplogger from 'pino-http';
 import logger from "./logger";
@@ -7,6 +7,8 @@ dotenv.config();
 
 const app : Express = express();
 const port = process.env.PORT || 3000;
+const secretKey = process.env.SECRET_KEY
+
 
 app.use(httplogger({logger}));
 // middileware that parses a json request
@@ -20,11 +22,13 @@ app.post('/api/auth/sign-in', (req: Request, res : Response) => {
     console.log(req.body.username)
     console.log(req.body.password)
 
-    if (req.body.username == "Daniel" && req.body.password == "1234")
-      return res.send(200);
+    if (req.body.username === "Daniel" && req.body.password === "1234")
+    {
+      return res.status(200).send("good")
+    }
     else
     {
-      return res.send(201)
+      return res.status(201).send("error")
     }
 })
 

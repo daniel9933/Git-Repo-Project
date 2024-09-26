@@ -26,7 +26,7 @@ const SignInScreen = () => {
                         password : Password,
                     }),
                 });
-
+                console.log(response.status)
                 if (response.status == 200) { 
                     router.push("/home")
                 }
