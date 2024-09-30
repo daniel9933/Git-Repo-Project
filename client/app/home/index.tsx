@@ -1,6 +1,5 @@
 import React from 'react';
-import { Redirect } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import {Text} from 'react-native';
 
 
 const HomeScreen = () =>{

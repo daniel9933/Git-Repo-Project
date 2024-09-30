@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
 import Logo from '../../../assets/images/Logo_1.png';
 import CustomInput from '../../components/CustomInput';
@@ -26,8 +27,13 @@ const SignInScreen = () => {
                         password : Password,
                     }),
                 });
-                console.log(response.status)
                 if (response.status == 200) { 
+                    const data = await response.json();
+                    const token = data.token;
+
+                    await AsyncStorage.setItem('token', token);
+                    console.log('Login successful, token stored:', token);
+
                     router.push("/home")
                 }
                 else
