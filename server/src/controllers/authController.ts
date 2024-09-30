@@ -20,3 +20,6 @@ export const signIn = (req: Request, res: Response) => {
         return res.status(401).send('Invalid credentials.');
     }
 };
+
+//todo: encrypt the token
+//todo: verify the token when it comes back from the client
