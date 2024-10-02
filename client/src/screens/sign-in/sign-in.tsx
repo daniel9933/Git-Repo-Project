@@ -31,7 +31,7 @@ const SignInScreen = () => {
                     const data = await response.json();
                     const token = data.token;
 
-                    await AsyncStorage.setItem('token', token);
+                    await AsyncStorage.setItem('token', token);// adds the token into the async storage
                     console.log('Login successful, token stored:', token);
 
                     router.push("/home")
@@ -58,8 +58,7 @@ const SignInScreen = () => {
         <View style={styles.root}>
             <ScrollView 
                 showsVerticalScrollIndicator={false} 
-                contentContainerStyle={styles.scrollViewContent}
-            >
+                contentContainerStyle={styles.scrollViewContent}>
                 <View style={styles.mainContent}>
                     <Image
                         source={Logo}

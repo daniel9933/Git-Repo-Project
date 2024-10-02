@@ -19,6 +19,18 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use('/api/auth' , authRoutes)
 
+// todo: split the code onto modules. from:
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['Authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // && checks if authHeaders isn't null.
+  if (token){
+    
+  }
+}
+
+app.get("/api/home" , authenticateToken ,(req : Request, res: Response) => {
+  return res.status(200).send("ok")
+}) // to.
 
 console.log('Starting server...');
 const server = app.listen(port, () => {
