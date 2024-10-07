@@ -1,8 +1,9 @@
-import express, {Express , Request , Response, } from "express";
+import express, {Express , Request , Response} from "express";
 import dotenv from 'dotenv';
 import httplogger from 'pino-http';
 import logger from "./logger";
 import authRoutes from './routes/authRoutes'
+import mainRoutes from './routes/mainRoutes'
 
 dotenv.config();
 
@@ -18,19 +19,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use('/api/auth' , authRoutes)
-
-// todo: split the code onto modules. from:
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['Authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // && checks if authHeaders isn't null.
-  if (token){
-    
-  }
-}
-
-app.get("/api/home" , authenticateToken ,(req : Request, res: Response) => {
-  return res.status(200).send("ok")
-}) // to.
+app.use('/api/home', mainRoutes)
+// todo: add a check to see if the token had not expired then the user stays logged in even if the app was closed and restarted.
 
 console.log('Starting server...');
 const server = app.listen(port, () => {

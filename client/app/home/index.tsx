@@ -12,7 +12,7 @@ const tempPressed = async() =>{
         method: "GET",
         headers: {
         'content-type' : 'application-json',
-        'Authorization' : "Bearer ${jwtToken}",
+        'authorization' : `Bearer ${jwtToken}`,
           },
         })
       
