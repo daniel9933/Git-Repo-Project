@@ -51,7 +51,8 @@ const SignInScreen = () => {
         <>
             <Stack.Screen
             options={{
-                headerShown: true,
+                headerShown: false,
+                gestureEnabled : false,
             }}
             />
 

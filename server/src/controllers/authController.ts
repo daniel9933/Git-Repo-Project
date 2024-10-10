@@ -12,7 +12,7 @@ export const signIn = (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (username === 'Daniel' && password === '1234')
     {
-        const token = jwt.sign({ userId : "1" ,username: username }, secretKey, { expiresIn: '1h' }); // later the id changes do the _id in the database.
+        const token = jwt.sign({ userId : "1" ,username: username }, secretKey, { expiresIn: '10m' }); // later the id changes do the _id in the database.
         return res.status(200).json({ token });
     } 
 
@@ -23,4 +23,4 @@ export const signIn = (req: Request, res: Response) => {
 };
 
 //todo: encrypt the token
-//todo: verify the token when it comes back from the client
+//todo: implement a two token 

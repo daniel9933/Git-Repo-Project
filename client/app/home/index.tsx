@@ -4,6 +4,18 @@ import Button from '../../src/components/CustomButton';
 import {router, Stack} from "expo-router"
 import { View, StyleSheet } from 'react-native';
 
+
+const LogOutPressed = async() =>{
+  try{
+    await AsyncStorage.removeItem('token');
+    console.log("success")
+    router.push("/sign-in")
+  }
+  catch (error){
+    console.log("error: ", error)
+  }
+}
+
 const tempPressed = async() =>{
   try {
     const jwtToken = await AsyncStorage.getItem('token');
@@ -43,6 +55,7 @@ const HomeScreen = () =>{
     <Stack.Screen
     options={{
         headerShown: false,
+        gestureEnabled: false,// prevent the user to swipe back to the login page.
     }}
     />
 
@@ -51,6 +64,11 @@ const HomeScreen = () =>{
           text="Press here"
           onPress={tempPressed}
           type="PRIMARY"
+        />
+        <Button
+          text = "Log Out"
+          onPress={LogOutPressed}
+          type = "TERTIARY"
         />
       </View>
     </>
