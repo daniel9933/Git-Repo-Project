@@ -20,7 +20,6 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use('/api/auth' , authRoutes)
 app.use('/api/home', mainRoutes)
-// todo: add a check to see if the token had not expired then the user stays logged in even if the app was closed and restarted.
 
 console.log('Starting server...');
 const server = app.listen(port, () => {

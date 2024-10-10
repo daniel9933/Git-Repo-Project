@@ -4,6 +4,7 @@ import Button from '../../src/components/CustomButton';
 import {router, Stack} from "expo-router"
 import { View, StyleSheet } from 'react-native';
 
+//todo: implement loading login.
 
 const LogOutPressed = async() =>{
   try{
@@ -29,10 +30,10 @@ const tempPressed = async() =>{
         })
       
 
-      if (response.status == 200){
+      if (response.status === 200){
         console.log('Success: token valid.')
       }
-      else if (response.status == 401){
+      else if (response.status === 401){
         console.log("Request Failed. token invalid or expired."),
         router.push("/sign-in")
       }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
 import Logo from '../../../assets/images/Logo_1.png';
@@ -14,20 +14,42 @@ const SignInScreen = () => {
 
     const { height } = useWindowDimensions(); // gets the window dimensions of the device
 
+    //this is to check if a token already exists and valid, if it is then out redirect home.
+    useEffect(() => {
+        const checkToken = async() => {
+            const jwtToken = await AsyncStorage.getItem('token');
+            if (jwtToken) {
+                const response = await fetch('http://192.168.1.221:3000/api/auth/sign-in', {
+                    method: 'GET',
+                    headers: {
+                        'content-type' : 'application/json',
+                        'authorization' : `Bearer ${jwtToken}`,
+                    }
+                });
+                if (response.status === 200)
+                {
+                    console.log('token found, redirecting to home...');
+                    router.push("/home");
+                }
+            }
+        };
+        checkToken();
+    }, []); // empty array to run this effect only once.
+
     // this function sends the login data to the server. 
     const SignInPressed = async () => {
         try {
             const response = await fetch('http://192.168.1.221:3000/api/auth/sign-in', {
                     method : 'POST',
                     headers: {
-                        'Content-Type' : 'application/json',
+                        'content-type' : 'application/json',
                     },
                     body: JSON.stringify({
                         username: Username,
                         password : Password,
                     }),
                 });
-                if (response.status == 200) { 
+                if (response.status === 200) { 
                     const data = await response.json();
                     const token = data.token;
 
