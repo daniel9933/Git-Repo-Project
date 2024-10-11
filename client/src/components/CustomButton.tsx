@@ -1,17 +1,20 @@
 import React from "react";
-import {View, Text , StyleSheet, Pressable} from 'react-native'
+import {View, Text , StyleSheet, Pressable, ActivityIndicator} from 'react-native'
 
 
 interface CustomButtonProps{
     text: string;
     onPress: () => void;
     type?: 'PRIMARY' | 'TERTIARY' | 'SECONDARY';// optional
+    loading? : boolean;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ onPress, text, type }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ onPress, text, type, loading }) => {
     return (
-        <Pressable onPress={onPress} style={[styles.container, type ? styles[`container_${type}`] : {}]}>
-            <Text style={[styles.text, type ? styles[`text_${type}`] : {}]}>{text}</Text>
+        <Pressable onPress={onPress} style={[styles.container, type ? styles[`container_${type}`] : {}]} disabled = {loading}>
+            {loading? 
+            (<ActivityIndicator size = "small" color = "white"/> ) : 
+            (<Text style={[styles.text, type ? styles[`text_${type}`] : {}]}>{text}</Text>)}
         </Pressable>
     );
 };

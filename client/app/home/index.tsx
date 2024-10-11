@@ -10,7 +10,7 @@ const LogOutPressed = async() =>{
   try{
     await AsyncStorage.removeItem('token');
     console.log("success")
-    router.push("/sign-in")
+    router.replace("/sign-in")
   }
   catch (error){
     console.log("error: ", error)
@@ -29,7 +29,6 @@ const tempPressed = async() =>{
           },
         })
       
-
       if (response.status === 200){
         console.log('Success: token valid.')
       }
@@ -41,6 +40,7 @@ const tempPressed = async() =>{
         console.log("Request Failed.", response.status);
       };
     }
+
     else{
       console.log("no token found.");
       router.push("/sign-in")
@@ -56,7 +56,6 @@ const HomeScreen = () =>{
     <Stack.Screen
     options={{
         headerShown: false,
-        gestureEnabled: false,// prevent the user to swipe back to the login page.
     }}
     />
 

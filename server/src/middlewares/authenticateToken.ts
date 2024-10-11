@@ -31,6 +31,6 @@ export const authenticateToken = (req : Request, res : Response, next : NextFunc
     }
     else {
     res.status(401).send("no token")
-        }
+    }
     }
 }

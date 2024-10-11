@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
+import { View, Image, StyleSheet, useWindowDimensions, ScrollView , ActivityIndicator} from 'react-native';
 import Logo from '../../../assets/images/Logo_1.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -11,6 +11,7 @@ const SignInScreen = () => {
 
     const [Username, setUsername] = useState(''); // initial state of username and password
     const [Password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const { height } = useWindowDimensions(); // gets the window dimensions of the device
 
@@ -29,7 +30,7 @@ const SignInScreen = () => {
                 if (response.status === 200)
                 {
                     console.log('token found, redirecting to home...');
-                    router.push("/home");
+                    router.replace("/home");
                 }
             }
         };
@@ -38,6 +39,7 @@ const SignInScreen = () => {
 
     // this function sends the login data to the server. 
     const SignInPressed = async () => {
+        setIsLoading(true);
         try {
             const response = await fetch('http://192.168.1.221:3000/api/auth/sign-in', {
                     method : 'POST',
@@ -56,7 +58,7 @@ const SignInScreen = () => {
                     await AsyncStorage.setItem('token', token);// adds the token into the async storage
                     console.log('Login successful, token stored:', token);
 
-                    router.push("/home")
+                    router.replace("/home")
                 }
                 else
                 {
@@ -67,6 +69,9 @@ const SignInScreen = () => {
                 console.error('Error logging in:', error);
                 alert('An error occured. please try again.')
             }
+            finally{
+                setIsLoading(false)
+            }
         }
 
     return (
@@ -74,7 +79,6 @@ const SignInScreen = () => {
             <Stack.Screen
             options={{
                 headerShown: false,
-                gestureEnabled : false,
             }}
             />
 
@@ -106,6 +110,7 @@ const SignInScreen = () => {
                         text="Sign In"
                         onPress= {SignInPressed}
                         type="PRIMARY"
+                        loading={isLoading}
                     />
 
                     <CustomButton

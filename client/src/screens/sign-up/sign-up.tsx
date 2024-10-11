@@ -17,6 +17,7 @@ const SignUpScreen = () => {
             <Stack.Screen
             options={{
                 headerShown: false,
+                gestureEnabled: false,
             }}
             />
     
