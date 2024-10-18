@@ -1,4 +1,4 @@
-import { DarkTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme } from '@react-navigation/native';
 
 
 export const CustomTheme = {

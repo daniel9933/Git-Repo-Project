@@ -1,11 +1,11 @@
 import React from "react";
-import {View, Text , StyleSheet, Pressable, ActivityIndicator} from 'react-native'
+import {Text , StyleSheet, Pressable, ActivityIndicator} from 'react-native'
 
 
 interface CustomButtonProps{
     text: string;
     onPress: () => void;
-    type?: 'PRIMARY' | 'TERTIARY' | 'SECONDARY';// optional
+    type?: 'PRIMARY' | 'TERTIARY' | 'SECONDARY';
     loading? : boolean;
 }
 

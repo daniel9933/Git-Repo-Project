@@ -17,6 +17,8 @@ const LogOutPressed = async() =>{
   }
 }
 
+// todo: apply two token authentication process
+// todo: seperate the fetching code to modules where you do fetch with token and refresh token functions.
 const tempPressed = async() =>{
   try {
     const jwtToken = await AsyncStorage.getItem('token');

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Image, StyleSheet, useWindowDimensions, ScrollView , ActivityIndicator} from 'react-native';
+import { View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
 import Logo from '../../../assets/images/Logo_1.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -9,7 +9,7 @@ import {router, Stack} from "expo-router"
 
 const SignInScreen = () => {
 
-    const [Username, setUsername] = useState(''); // initial state of username and password
+    const [Username, setUsername] = useState('');
     const [Password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -38,6 +38,7 @@ const SignInScreen = () => {
     }, []); // empty array to run this effect only once.
 
     // this function sends the login data to the server. 
+    //todo: store the refresh token in a secure storage.
     const SignInPressed = async () => {
         setIsLoading(true);
         try {

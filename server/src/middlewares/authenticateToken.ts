@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
+import * as jose from 'jose';
 
 dotenv.config();
 
 const secretKey = process.env.SECRET_KEY;
-if (!secretKey) throw new Error("SECRET_KEY is not defined in the environment variables");
+const encryptionKey = process.env.ENCRYPTION_KEY;
+if (!secretKey || !encryptionKey) throw new Error("KEY is not defined in the environment variables");
 
 
 interface AuthRequest extends Request {
@@ -34,3 +35,6 @@ export const authenticateToken = (req : Request, res : Response, next : NextFunc
     }
     }
 }
+
+// change the verifaction process to jose
+// whole verifaction process of the refresh token, 
