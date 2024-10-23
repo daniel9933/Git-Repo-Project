@@ -36,5 +36,5 @@ export const authenticateToken = (req : Request, res : Response, next : NextFunc
     }
 }
 
-// change the verifaction process to jose
-// whole verifaction process of the refresh token, 
+// todo: change the verifaction process to jose
+// todo: whole verifaction process of the refresh token, 
