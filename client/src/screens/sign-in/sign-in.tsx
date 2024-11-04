@@ -18,7 +18,7 @@ const SignInScreen = () => {
     //this is to check if a token already exists and valid, if it is then out redirect home.
     useEffect(() => {
         const checkToken = async() => {
-            const jwtToken = await AsyncStorage.getItem('token');
+            const jwtToken = await AsyncStorage.getItem('RefreshToken');
             if (jwtToken) {
                 const response = await fetch('http://192.168.1.221:3000/api/auth/sign-in', {
                     method: 'GET',
@@ -38,7 +38,6 @@ const SignInScreen = () => {
     }, []); // empty array to run this effect only once.
 
     // this function sends the login data to the server. 
-    //todo: store the refresh token in a secure storage.
     const SignInPressed = async () => {
         setIsLoading(true);
         try {
@@ -54,10 +53,13 @@ const SignInScreen = () => {
                 });
                 if (response.status === 200) { 
                     const data = await response.json();
-                    const token = data.token;
+                    const accessToken = data.accessToken;
+                    const refreshToken = data.refreshToken;
 
-                    await AsyncStorage.setItem('token', token);// adds the token into the async storage
-                    console.log('Login successful, token stored:', token);
+                    await AsyncStorage.setItem('accessToken', accessToken);// adds the token into the async storage
+                    await AsyncStorage.setItem('refreshToken', accessToken)
+                    console.log('Login successful, AcessToken stored:', accessToken);
+                    console.log('Refresh Token', refreshToken);
 
                     router.replace("/home")
                 }

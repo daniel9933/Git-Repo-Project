@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import * as jose from 'jose';
 import { createAccessToken, createRefreshToken, encryptToken, decryptToken } from '../utils/tokenUtils';
 
 dotenv.config();
@@ -17,9 +16,11 @@ export const signIn = async (req: Request, res: Response) => {
             const userId = '1';
             const accessToken = await createAccessToken(userId, username);
             const refreshToken = await createRefreshToken(userId);
-
+            
             const encryptedAccessToken = await encryptToken(accessToken);
+            console.log("encrypted access token")
             const encryptedRefreshToken = await encryptToken(refreshToken);
+            console.log("encrypted refresh token")
 
             return res.status(200).json({ 
                 accessToken: encryptedAccessToken, 

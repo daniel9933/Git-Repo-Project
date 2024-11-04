@@ -8,7 +8,8 @@ import { View, StyleSheet } from 'react-native';
 
 const LogOutPressed = async() =>{
   try{
-    await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('accessToken');
+    await AsyncStorage.removeItem('refreshToken');
     console.log("success")
     router.replace("/sign-in")
   }

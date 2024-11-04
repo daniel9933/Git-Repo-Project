@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import dotenv, { decrypt } from 'dotenv';
+import dotenv from 'dotenv';
 import { decryptToken } from '../utils/tokenUtils';
 import * as jose from 'jose';
 
@@ -13,7 +13,6 @@ interface AuthRequest extends Request {
     userId: string;
 };
 
-// todo: functions to verify access token, refresh token, 
 export const authenticateAccessToken = async (req : Request, res : Response, next : NextFunction) => {
     // this function verifies the access token
     if (req.headers['authorization'])
@@ -57,5 +56,8 @@ export const authenticateAccessToken = async (req : Request, res : Response, nex
     }
 
 
-// todo: change the verifaction process to jose
-// todo: whole verifaction process of the refresh token, 
+// export const authenticateRefreshToken = async () => { 
+//}
+
+// todo: change the verification process to jose
+// todo: whole verification process of the refresh token

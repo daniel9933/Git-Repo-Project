@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import * as jose from 'jose';
 
@@ -27,8 +26,8 @@ export const createRefreshToken = async (userId: string) : Promise<string> =>{
 
 export const encryptToken = async (token : string) : Promise<string> =>{
     const ekey = await jose.importJWK({
-        kty: 'dir',
-        k: Buffer.from(encryptionKey).toString('base64')
+        kty: 'oct',
+        k: Buffer.from(encryptionKey, 'hex').toString('base64url')  // convert it to hex to make sure the size stays the same.
     }, 'A256GCM');
 
     return new jose.CompactEncrypt(
@@ -40,8 +39,8 @@ export const encryptToken = async (token : string) : Promise<string> =>{
 
 export const decryptToken = async (enryptedToken : string): Promise<string> => {
     const ekey = await jose.importJWK({
-        kty: 'dir',
-        k: Buffer.from(encryptionKey).toString('base64')
+        kty: 'oct',
+        k: Buffer.from(encryptionKey, 'hex').toString('base64url')
     }, 'A256GCM');
 
     const { plaintext } = await jose.compactDecrypt(enryptedToken, ekey);
@@ -49,4 +48,4 @@ export const decryptToken = async (enryptedToken : string): Promise<string> => {
 };
 
 
-
+    

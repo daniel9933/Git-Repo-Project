@@ -1,0 +1,13 @@
+todo: 
+client side: 
+    make a reusable request function.
+    store the tokens in secure storages.
+    implement loading logic to everything needed.
+    make the authenctication proccess a two token one 
+    {implement logic with the tokens so it tracks the expiration time of the tokens and when the refresh token for example is about to expire 
+    it will send both of the tokens to the server to get a new token assigned.}
+
+    i guess the best way to do it would be a seperate module for request , and for the token part.
+
+server side:
+    authenticateRefreshToken middleware
