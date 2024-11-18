@@ -10,7 +10,7 @@ const LogOutPressed = async() =>{
   try{
     await AsyncStorage.removeItem('accessToken');
     await AsyncStorage.removeItem('refreshToken');
-    console.log("success")
+    console.log("Tokens removed.")
     router.replace("/sign-in")
   }
   catch (error){
@@ -22,7 +22,7 @@ const LogOutPressed = async() =>{
 // todo: seperate the fetching code to modules where you do fetch with token and refresh token functions.
 const tempPressed = async() =>{
   try {
-    const jwtToken = await AsyncStorage.getItem('token');
+    const jwtToken = await AsyncStorage.getItem('accessToken');
     if (jwtToken){
     const response = await fetch("http://192.168.1.221:3000/api/home", {
         method: "GET",

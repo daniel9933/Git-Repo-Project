@@ -24,28 +24,47 @@ export const createRefreshToken = async (userId: string) : Promise<string> =>{
     .sign(new TextEncoder().encode(secretKey));
 };
 
-export const encryptToken = async (token : string) : Promise<string> =>{
-    const ekey = await jose.importJWK({
-        kty: 'oct',
-        k: Buffer.from(encryptionKey, 'hex').toString('base64url')  // convert it to hex to make sure the size stays the same.
-    }, 'A256GCM');
 
-    return new jose.CompactEncrypt(
-        new TextEncoder().encode(token)
+export const encryptToken = async (token: string): Promise<string> => {
+    // Import the encryption key
+    const ekey = await jose.importJWK(
+        {
+            kty: 'oct',
+            k: Buffer.from(encryptionKey, 'hex').toString('base64url'), // Convert from hex to base64url
+        },
+        'A256GCM' // Encryption algorithm
+    );
+
+    // Encrypt the token
+    return await new jose.CompactEncrypt(
+        new TextEncoder().encode(token) // Convert token to Uint8Array
     )
-        .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
+        .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' }) // Set the header
         .encrypt(ekey);
 };
 
-export const decryptToken = async (enryptedToken : string): Promise<string> => {
-    const ekey = await jose.importJWK({
-        kty: 'oct',
-        k: Buffer.from(encryptionKey, 'hex').toString('base64url')
-    }, 'A256GCM');
 
-    const { plaintext } = await jose.compactDecrypt(enryptedToken, ekey);
-    return new TextDecoder().decode(plaintext);
+export const decryptToken = async (encryptedToken: string): Promise<string> => {
+    try {
+        // Import the decryption key
+        const ekey = await jose.importJWK(
+            {
+                kty: 'oct',
+                k: Buffer.from(encryptionKey, 'hex').toString('base64url'), // Convert from hex to base64url
+            },
+            'A256GCM' // Encryption algorithm
+        );
+
+        // Decrypt the token
+        const { plaintext, protectedHeader } = await jose.compactDecrypt(encryptedToken, ekey);
+        console.log("protected header : ----> ", protectedHeader);
+
+        // Convert the decrypted plaintext back to string
+        return new TextDecoder().decode(plaintext);
+    } catch (error) {
+        console.error('Token decryption failed:', error);
+        throw new Error('Failed to decrypt the token.');
+    }
 };
-
 
     

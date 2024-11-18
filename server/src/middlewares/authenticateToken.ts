@@ -18,13 +18,16 @@ export const authenticateAccessToken = async (req : Request, res : Response, nex
     if (req.headers['authorization'])
     {
         try{    
-            const authHeader = await decryptToken(req.headers['authorization'])
-            console.log(authHeader)
+            const authHeader = req.headers['authorization'];
             if (authHeader && typeof authHeader === 'string'){
                 const token = authHeader.split(' ')[1];
+
                 if (token){
                     try{
-                        const { payload } = await jose.jwtVerify(token, secretKey);
+                        const decryptedToken = await decryptToken(token)
+                        console.log(decryptedToken)
+
+                        const { payload } = await jose.jwtVerify(decryptedToken, secretKey);
                         if (typeof payload.userId === 'string'){
                             (req as AuthRequest).userId = payload.userId
                             next();
