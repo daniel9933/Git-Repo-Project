@@ -9,12 +9,12 @@ const secretKey = new TextEncoder().encode(process.env.SECRET_KEY);
 if (!secretKey) throw new Error("KEY is not defined in the environment variables");
 
 
-interface AuthRequest extends Request {
+export interface AuthRequest extends Request {
     userId: string;
 };
 
-export const authenticateAccessToken = async (req : Request, res : Response, next : NextFunction) => {
-    // this function verifies the access token
+export const authenticateToken = async (req : Request, res : Response, next : NextFunction) => {
+    // this function verifies the tokens
     if (req.headers['authorization'])
     {
         try{    
@@ -57,10 +57,3 @@ export const authenticateAccessToken = async (req : Request, res : Response, nex
             return res.status(401).send("No authorization header");
         }
     }
-
-
-// export const authenticateRefreshToken = async () => { 
-//}
-
-// todo: change the verification process to jose
-// todo: whole verification process of the refresh token

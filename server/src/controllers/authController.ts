@@ -1,26 +1,16 @@
 import { Request, Response } from 'express';
-import dotenv from 'dotenv';
-import { createAccessToken, createRefreshToken, encryptToken, decryptToken } from '../utils/tokenUtils';
-
-dotenv.config();
-
-const secretKey = process.env.SECRET_KEY;
-const encryptionKey = process.env.ENCRYPTION_KEY;
-if (!secretKey || !encryptionKey) throw new Error("KEY is not defined in the environment variables");
+import {genAndEncryptAccessToken, genAndEncryptRefreshToken} from '../utils/tokenCreation'
+import {AuthRequest} from '../middlewares/authenticateToken'
 
 export const signIn = async (req: Request, res: Response) => {
     const { username, password } = req.body;
-
+// later we need to implement it with a db and send the username and the userId
     if (username === 'Daniel' && password === '1234') {
         try {
             const userId = '1';
-            const accessToken = await createAccessToken(userId, username);
-            const refreshToken = await createRefreshToken(userId);
-            
-            const encryptedAccessToken = await encryptToken(accessToken);
-            console.log("encrypted access token")
-            const encryptedRefreshToken = await encryptToken(refreshToken);
-            console.log("encrypted refresh token")
+
+            const encryptedAccessToken = await genAndEncryptAccessToken(userId)
+            const encryptedRefreshToken = await genAndEncryptRefreshToken(userId);
 
             return res.status(200).json({ 
                 accessToken: encryptedAccessToken, 
@@ -35,3 +25,21 @@ export const signIn = async (req: Request, res: Response) => {
         return res.status(401).send('Invalid credentials.');
     }
 };
+
+//this function reasigned a new access token to the user after it had expired.
+export const reasignAccessToken = (req: Request, res: Response) => {
+    const userId = (req as AuthRequest).userId;
+
+    if (!userId){
+        return res.status(400).send("No userId available.");
+    }
+
+    try {
+        const newEncryptedAccessToken = genAndEncryptAccessToken(userId)// later we need to query the database inorder to fetch the username.
+        res.status(200).send({ accessToken: newEncryptedAccessToken });
+    }
+    catch (error) {
+        console.error("Error generating access token:", error);
+        res.status(500).send("Error generating access token.");
+    }
+}

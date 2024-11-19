@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { authenticateAccessToken } from '../middlewares/authenticateToken';
+import { authenticateToken } from '../middlewares/authenticateToken';
 import { tokenValid } from '../controllers/homeController';
 
 const Homerouter = Router();
 
-Homerouter.get('/', authenticateAccessToken, tokenValid);
+Homerouter.get('/', authenticateToken, tokenValid);
 
 export default Homerouter;

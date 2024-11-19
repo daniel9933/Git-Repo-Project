@@ -8,8 +8,8 @@ const encryptionKey = process.env.ENCRYPTION_KEY;
 if (!secretKey || !encryptionKey) throw new Error("KEY is not defined in the environment variables");
 
 
-export const createAccessToken = async (userId: string , username: string) : Promise<string> => {
-    return new jose.SignJWT({ userId: userId, username: username })
+export const createAccessToken = async (userId: string) : Promise<string> => {
+    return new jose.SignJWT({ userId: userId })
     .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
     .setExpirationTime('20m')
     .setIssuedAt()
