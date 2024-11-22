@@ -27,7 +27,7 @@ export const signIn = async (req: Request, res: Response) => {
 };
 
 //this function reasigned a new access token to the user after it had expired.
-export const reasignAccessToken = (req: Request, res: Response) => {
+export const reasignAccessToken = async(req: Request, res: Response) => {
     const userId = (req as AuthRequest).userId;
 
     if (!userId){
@@ -35,8 +35,9 @@ export const reasignAccessToken = (req: Request, res: Response) => {
     }
 
     try {
-        const newEncryptedAccessToken = genAndEncryptAccessToken(userId)// later we need to query the database inorder to fetch the username.
-        res.status(200).send({ accessToken: newEncryptedAccessToken });
+        const newEncryptedAccessToken = await genAndEncryptAccessToken(userId)// later we need to query the database inorder to fetch the username.\
+        console.log("new token ------>",newEncryptedAccessToken)
+        res.status(200).json({ accessToken: newEncryptedAccessToken });
     }
     catch (error) {
         console.error("Error generating access token:", error);

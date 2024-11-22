@@ -4,7 +4,9 @@ export default pino({
     transport: {
         targets: [
             {
-            target: 'pino-pretty',
+                target: 'pino-pretty',
+                options: {colorize: true},
+                level: 'error'
             },
         ],
     },

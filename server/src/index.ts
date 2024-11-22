@@ -13,6 +13,7 @@ const port = process.env.PORT || 3000;
 app.use(httplogger({logger}));
 // middileware that parses a json request
 app.use(express.json())
+app.disable('etag'); // disable caching because of an issue, if caching is needed revisit cache control and etag configuration.
 
 app.get("/", (req: Request, res: Response) => {
   res.send("ok");

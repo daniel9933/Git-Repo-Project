@@ -57,7 +57,7 @@ const SignInScreen = () => {
                     const refreshToken = data.refreshToken;
 
                     await AsyncStorage.setItem('accessToken', accessToken);// adds the token into the async storage
-                    await AsyncStorage.setItem('refreshToken', accessToken)
+                    await AsyncStorage.setItem('refreshToken', refreshToken)
                     console.log('Login successful, AcessToken stored:', accessToken);
                     console.log('Refresh Token', refreshToken);
 

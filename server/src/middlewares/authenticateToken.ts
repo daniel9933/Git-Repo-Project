@@ -15,6 +15,7 @@ export interface AuthRequest extends Request {
 
 export const authenticateToken = async (req : Request, res : Response, next : NextFunction) => {
     // this function verifies the tokens
+    console.log("authenticateToken middileware ----------->")
     if (req.headers['authorization'])
     {
         try{    

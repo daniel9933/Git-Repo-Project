@@ -57,7 +57,6 @@ export const decryptToken = async (encryptedToken: string): Promise<string> => {
 
         // Decrypt the token
         const { plaintext, protectedHeader } = await jose.compactDecrypt(encryptedToken, ekey);
-        console.log("protected header : ----> ", protectedHeader);
 
         // Convert the decrypted plaintext back to string
         return new TextDecoder().decode(plaintext);
