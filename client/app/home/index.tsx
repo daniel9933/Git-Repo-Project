@@ -25,7 +25,7 @@ const tempPressed = async() =>{
   try {
     const jwtToken = await AsyncStorage.getItem('accessToken');
     if(jwtToken){
-      const response = await makeRequest({
+      const data = await makeRequest({
         url: "http://192.168.1.221:3000/api/home", 
         method: 'GET',
         token: jwtToken})

@@ -30,6 +30,8 @@ export const makeRequest = async({url, method, token, body}: requestOptions): Pr
         const response = await fetch(url, options);
         if (response.ok){
             console.log("successful request.")
+            const data = await response.json();
+            return data
         }
 
         if (response.status === 401){
@@ -96,112 +98,3 @@ const handleSessionExpired = () =>{
     console.log("Redirecting to login... tokens removed.");
     router.replace("/sign-in")
 }
-
-
-
-
-/* todo: compare.
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router } from "expo-router";
-
-// Custom error type for better debugging
-class TokenRefreshError extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "TokenRefreshError";
-    }
-}
-
-interface RequestOptions {
-    url: string;
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-    token?: string; // Token can be optional if handled inside makeRequest
-    body?: Record<string, unknown>; // Stricter type for body
-}
-
-export const makeRequest = async ({ url, method, token, body }: RequestOptions): Promise<any> => {
-    const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
-    };
-
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-    }
-
-    const options: RequestInit = {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined,
-    };
-
-    try {
-        const response = await fetch(url, options);
-
-        if (response.status === 401) {
-            console.log("Access token expired. Attempting to refresh...");
-            const newToken = await refreshAccessToken();
-
-            if (!newToken) {
-                throw new TokenRefreshError("Unable to refresh token");
-            }
-
-            return makeRequest({ url, method, token: newToken, body });
-        }
-
-        if (response.ok) {
-            const contentType = response.headers.get('Content-Type');
-            if (contentType && contentType.includes('application/json')) {
-                return await response.json();
-            }
-            return null; // Return null if no content
-        }
-
-        throw new Error(`HTTP Error: ${response.status}`);
-    } catch (error) {
-        console.error("Error during request:", error);
-        throw error;
-    }
-};
-
-const refreshAccessToken = async (): Promise<string | null> => {
-    try {
-        const refreshToken = await AsyncStorage.getItem('refreshToken'); // Await the storage call
-        if (!refreshToken) {
-            console.log("No refresh token available");
-            handleSessionExpired();
-            return null;
-        }
-
-        const response = await fetch('/auth/refresh', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ refreshToken }),
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            console.log("Token refreshed successfully:", data.accessToken);
-            await AsyncStorage.setItem('accessToken', data.accessToken);
-            return data.accessToken;
-        }
-
-        if (response.status === 401) {
-            console.log("Invalid refresh token. Logging out...");
-            handleSessionExpired();
-            return null;
-        }
-
-        throw new Error(`Unexpected error during refresh: ${response.status}`);
-    } catch (error) {
-        console.error("Error refreshing token:", error);
-        handleSessionExpired();
-        return null;
-    }
-};
-
-const handleSessionExpired = (): void => {
-    AsyncStorage.multiRemove(['accessToken', 'refreshToken']);
-    console.log("Redirecting to login...");
-    router.replace("/sign-in");
-};
-*/

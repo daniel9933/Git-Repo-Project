@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
+import { View, Image, StyleSheet, useWindowDimensions, ScrollView, ActivityIndicator} from 'react-native';
 import Logo from '../../../assets/images/Logo_1.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {router, Stack} from "expo-router"
+import { makeRequest } from '../../utils/requestUtils';
 
 
 const SignInScreen = () => {
@@ -12,28 +13,37 @@ const SignInScreen = () => {
     const [Username, setUsername] = useState('');
     const [Password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [checkingToken, setCheckingToken] = useState(true);
 
     const { height } = useWindowDimensions(); // gets the window dimensions of the device
 
     //this is to check if a token already exists and valid, if it is then out redirect home.
     useEffect(() => {
-        const checkToken = async() => {
-            const jwtToken = await AsyncStorage.getItem('RefreshToken');
-            if (jwtToken) {
-                const response = await fetch('http://192.168.1.221:3000/api/auth/sign-in', {
-                    method: 'GET',
-                    headers: {
-                        'content-type' : 'application/json',
-                        'authorization' : `Bearer ${jwtToken}`,
+        const checkToken = async () => {
+            console.log("Checking if there is a valid token...");
+            try {
+                const refreshToken = await AsyncStorage.getItem('refreshToken');
+                if (refreshToken) {
+                    const data = await makeRequest({
+                        url: 'http://192.168.1.221:3000/api/auth/sign-in',
+                        method: 'GET',
+                        token: refreshToken
+                    });
+
+                    if (data?.message === 'valid token') {
+                        console.log("Token found. Redirecting to home...");
+                        router.replace("/home");
+                        return;
                     }
-                });
-                if (response.status === 200)
-                {
-                    console.log('token found, redirecting to home...');
-                    router.replace("/home");
                 }
+                console.log("Token not found or invalid. Staying on login.");
+            } catch (error) {
+                console.error("Error checking token validity:", error);
+            } finally {
+                setCheckingToken(false); // Token check complete
             }
         };
+
         checkToken();
     }, []); // empty array to run this effect only once.
 
@@ -77,6 +87,14 @@ const SignInScreen = () => {
             }
         }
 
+        if (checkingToken) {
+            // Show a loading indicator while checking the token
+            return (
+                <View style={styles.centered}>
+                    <ActivityIndicator size="large" color="white" />
+                </View>
+            );
+        }
     return (
         <>
             <Stack.Screen
@@ -168,8 +186,11 @@ const styles = StyleSheet.create({
         marginVertical: 5, // Vertical spacing around the line
         alignSelf: 'center'
     },
-    
-
+    centered: {
+        flex: 1, // Ensures the container fills the screen
+        justifyContent: 'center', // Center content vertically
+        alignItems: 'center', // Center content horizontally
+    },
 });
 
 export default SignInScreen;

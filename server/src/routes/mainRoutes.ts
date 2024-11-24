@@ -5,5 +5,5 @@ import { tokenValid } from '../controllers/homeController';
 const Homerouter = Router();
 
 Homerouter.get('/', authenticateToken, tokenValid);
-
+    
 export default Homerouter;

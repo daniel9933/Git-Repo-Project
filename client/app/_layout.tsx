@@ -7,7 +7,7 @@ export default function Root(){
 
   return (
     <ThemeProvider value = {CustomTheme}>
-      <Stack/>
+      <Stack />
     </ThemeProvider>
   )
 }
